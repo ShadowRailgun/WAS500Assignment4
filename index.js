@@ -7,6 +7,10 @@ const routeResponseMap = {
   "/": "views/index.html",
   "/info": "views/info.html",
   "/error": "<h1>error</h1>",
+  "/books":"views/books.html",
+  "/books1":"views/oathbreaker.html",
+  "/books2":"views/rubyred.html",
+  "/books3":"views/wool.html",
 };
 
 const app = http.createServer();
@@ -24,6 +28,7 @@ app.on("request", (req, res) => {
     });
   } else {
     res.end(routeResponseMap["/error"]);
+    console.log("Page doesn't exist")
   }
 });
 app.listen(port);
