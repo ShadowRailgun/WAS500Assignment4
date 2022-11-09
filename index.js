@@ -10,6 +10,9 @@ const plainTextContentType = {
 const htmlContentType = {
   "Content-Type": "text/html",
 };
+const cssContentType = {
+  "Content-Type":"text/css",
+}
 const customReadFile = (file, res) => {
   fs.readFile(`./${file}`, (errors, data) => {
     if (errors) {
@@ -48,6 +51,11 @@ router.get("/book3.html", (req, res) => {
 router.get("/honesty.html", (req, res) => {
   res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
   customReadFile("views/honesty.html", res);
+});
+
+router.get("/public/css/styles.css", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, cssContentType);
+  customReadFile("public/css/styles.css", res);
 });
 
 router.post("/", (req, res) => {
