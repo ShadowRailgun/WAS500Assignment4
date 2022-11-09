@@ -1,35 +1,41 @@
 const port = 3000;
 const http = require("http");
-const httpStatus = require("http-status-codes");
+const httpStatusCodes = require("http-status-codes");
+const router = require("./router");
 const fs = require("fs");
 
-const routeResponseMap = {
-  "/": "views/index.html",
-  "/info": "views/info.html",
-  "/error": "<h1>error</h1>",
-  "/books":"views/books.html",
-  "/books1":"views/oathbreaker.html",
-  "/books2":"views/rubyred.html",
-  "/books3":"views/wool.html",
+const plainTextContentType = {
+  "Content-Type": "text/plain",
+};
+const htmlContentType = {
+  "Content-Type": "text/html",
+};
+const customReadFile = (file, res) => {
+  fs.readFile(`./${file}`, (errors, data) => {
+    if (errors) {
+      console.log("Error reading the file...");
+    }
+    res.end(data);
+  });
 };
 
-const app = http.createServer();
-app.on("request", (req, res) => {
-  console.log(`Received an incoming request...`);
-
-  res.writeHead(httpStatus.StatusCodes.OK, {
-    "Content-Type": "text/html",
-  });
-
-  if (routeResponseMap[req.url]) {
-    fs.readFile(routeResponseMap[req.url], (error, data) => {
-      res.write(data);
-      res.end();
-    });
-  } else {
-    res.end(routeResponseMap["/error"]);
-    console.log("Page doesn't exist")
-  }
+router.get("/", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/index.html", res);
 });
-app.listen(port);
-console.log(`The server has started and is listening on port number:${port}`);
+router.get("/index.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/index.html", res);
+});
+
+router.get("/books.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/books.html", res);
+});
+
+router.post("/", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, plainTextContentType);
+  res.end("POSTED");
+});
+http.createServer(router.handle).listen(3000);
+console.log(`The server is listening on port number: ${port}`);
