@@ -13,6 +13,10 @@ const htmlContentType = {
 const cssContentType = {
   "Content-Type":"text/css",
 }
+const jpgContentType = {
+  "Content-Type":"text/jpg",
+}
+
 const customReadFile = (file, res) => {
   fs.readFile(`./${file}`, (errors, data) => {
     if (errors) {
@@ -56,6 +60,18 @@ router.get("/honesty.html", (req, res) => {
 router.get("/public/css/styles.css", (req, res) => {
   res.writeHead(httpStatusCodes.StatusCodes.OK, cssContentType);
   customReadFile("public/css/styles.css", res);
+});
+router.get("/images/oathbreaker.jpg", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, jpgContentType);
+  customReadFile("public/images/oathbreaker.jpg", res);
+});
+router.get("/images/ruby.jpg", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, jpgContentType);
+  customReadFile("public/images/ruby.jpg", res);
+});
+router.get("/images/wool.jpg", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, jpgContentType);
+  customReadFile("public/images/wool.jpg", res);
 });
 
 router.post("/", (req, res) => {
