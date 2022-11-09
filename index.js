@@ -32,6 +32,23 @@ router.get("/books.html", (req, res) => {
   res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
   customReadFile("views/books.html", res);
 });
+router.get("/book1.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/book1.html", res);
+});
+router.get("/book2.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/book2.html", res);
+});
+router.get("/book3.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/book3.html", res);
+});
+
+router.get("/honesty.html", (req, res) => {
+  res.writeHead(httpStatusCodes.StatusCodes.OK, htmlContentType);
+  customReadFile("views/honesty.html", res);
+});
 
 router.post("/", (req, res) => {
   res.writeHead(httpStatusCodes.StatusCodes.OK, plainTextContentType);
